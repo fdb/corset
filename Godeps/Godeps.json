@@ -1,0 +1,6 @@
+{
+	"ImportPath": "bitbucket.org/fdb/corset",
+	"GoVersion": "go1.6",
+	"Deps": [
+	]
+}
