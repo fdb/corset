@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
+	"os"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +27,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, msg, http.StatusBadGateway)
 		return
 	}
-	fmt.Printf("HEADERS %v", res.Header)
 	for key := range res.Header {
 		w.Header().Set(key, res.Header.Get(key))
 	}
@@ -35,6 +36,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8888"
+	}
+
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("http://localhost:" + port + "/")
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
