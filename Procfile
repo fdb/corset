@@ -1,1 +1,1 @@
-web: corset
+web: node server.js
