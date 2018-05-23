@@ -34,7 +34,13 @@ app.get('/', (req, res) => {
         return;
     }
     const url = req.query.url;
-    request.get(url, (proxyErr, proxyRes, proxyBody) => {
+    const options = {
+        url: req.query.url,
+        headers: {
+            'User-Agent': 'CORSet 1.0'
+        }
+    };
+    request.get(options, (proxyErr, proxyRes, proxyBody) => {
         res.status(proxyRes.statusCode);
         res.append('Access-Control-Allow-Origin', '*');
         res.end(proxyBody);
